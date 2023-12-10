@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="BeatCounter.MediaPlayer"
+             Title="MediaPlayer">
+    <Grid>
+        <toolkit:MediaElement x:Name="mediaElement"
+                    ShouldAutoPlay="False"
+                    Source="embed://Khiva_FeelItOut.mp3"/>
+        <VerticalStackLayout>
+            <HorizontalStackLayout BindingContext="{x:Reference mediaElement}">
+                <Button Text="Play"
+                        HorizontalOptions="CenterAndExpand"
+                        Clicked="OnPlayPauseButtonClicked"
+                        Margin="10">
+                    <!--<Button.Triggers>
+                        <DataTrigger TargetType="Button"
+                                     Binding="{Binding CurrentState}"
+                                     Value="{x:Static toolkit:MediaElementState.Playing}">
+                            <Setter Property="Text"
+                                    Value="Pause" />
+                        </DataTrigger>
+                        <DataTrigger TargetType="Button"
+                                     Binding="{Binding CurrentState}"
+                                     Value="{x:Static toolkit:MediaElementState.Buffering}">
+                            <Setter Property="IsEnabled"
+                                    Value="False" />
+                        </DataTrigger>
+                    </Button.Triggers>-->
+                </Button>
+                <Button Text="Stop"
+                        HorizontalOptions="CenterAndExpand"
+                        Clicked="OnStopButtonClicked"
+                        Margin="10">
+                    <!--<Button.Triggers>
+                        <DataTrigger TargetType="Button"
+                                     Binding="{Binding CurrentState}"
+                                     Value="{x:Static toolkit:MediaElementState.Stopped}">
+                            <Setter Property="IsEnabled"
+                                    Value="False" />
+                        </DataTrigger>
+                    </Button.Triggers>-->
+                </Button>
+                <Label x:Name="beatCountLabel" Text="Beat Count: 0" FontSize="24"/>
+            </HorizontalStackLayout>
+            <Slider Maximum="1.0"
+                Minimum="0.0"
+                Value="{Binding Volume}"
+                Rotation="270"
+                WidthRequest="100" />
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>
