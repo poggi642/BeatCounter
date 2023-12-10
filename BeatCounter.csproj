@@ -66,6 +66,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="BPMAnalyzer.xaml.cs">
+	    <DependentUpon>BPMAnalyzer.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="MediaPlayer.xaml.cs">
 	    <DependentUpon>MediaPlayer.xaml</DependentUpon>
 	  </Compile>

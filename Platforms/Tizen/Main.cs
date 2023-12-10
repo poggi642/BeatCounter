@@ -1,6 +1,7 @@
 using Microsoft.Maui;
 using Microsoft.Maui.Hosting;
 using System;
+using UIKit;
 
 namespace BeatCounter;
 
