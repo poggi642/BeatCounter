@@ -9,14 +9,17 @@ using NAudio.Midi;
 using BeatCounter.Extensions;
 using System.Xml;
 using System.Xml.Serialization;
+using BeatCounter.Model;
 
-namespace BeatCounter.Model;
+namespace BeatCounter.Services;
 public class AudioAnalyzer
 {
     static double[] midi = new double[127];
+
+    public List<Note> Notes { get; set; } = new();
     public AudioAnalyzer()
     {
-        
+
     }
 
     public void TrackBeats()
@@ -75,7 +78,7 @@ public class AudioAnalyzer
                 //the note event, contains the midi note number (pitch)
                 var n = e as NoteEvent;
                 //the absolute time (in delta ticks) over the delta ticks per quarter note times the number of milliseconds per quarter note = time in milliseconds
-                notes.Add(new MidiNote(On.NoteLength, midi[n.NoteNumber], (long)((On.AbsoluteTime / (float)file.DeltaTicksPerQuarterNote) * tempo), On.Velocity));
+                notes.Add(new MidiNote(On.NoteLength, midi[n.NoteNumber], (long)(On.AbsoluteTime / (float)file.DeltaTicksPerQuarterNote * tempo), On.Velocity));
             }
         }
         //uses known values to get unknown values needed for a guitar hero clone
@@ -98,18 +101,18 @@ public class AudioAnalyzer
         notes.Sort((n, n2) => n.startTime.CompareTo(n2.startTime));
 
         //outputs the song data to {output}.song
-        List<Note> nt = new List<Note>();
+        //List<Note> Notes = new List<Note>();
         foreach (MidiNote n in notes)
         {
             MidiNote N = n;
             //gets unknown values for button and importance based off of known values
             N.ButtonSignificance(minFreq, maxFreq, minVol, maxVol, minLen, maxLen, sortType == "v");
-            nt.Add((Note)N);
+            Notes.Add((Note)N);
         }
         //serialize to XML document
         XmlTextWriter w = new XmlTextWriter(output, null);
         XmlSerializer serializer = new XmlSerializer(typeof(List<Note>));
-        serializer.Serialize(w, nt);
+        serializer.Serialize(w, Notes);
         w.Close();
         Console.WriteLine("done");
         Console.ReadKey();
@@ -173,7 +176,7 @@ public class AudioAnalyzer
         int a = 440;
         for (int i = 0; i < 127; i++)
         {
-            midi[i] = (a / 32) * Math.Pow(2, (i - 9) / 12);
+            midi[i] = a / 32 * Math.Pow(2, (i - 9) / 12);
         }
     }
 }

@@ -1,26 +1,27 @@
-﻿using NAudio.Wave;
-using NAudio.Mixer;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using NAudio.Wave;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace BeatCounter;
-
-public partial class BPMAnalyzer : ContentPage
+namespace BeatCounter.ViewModel;
+public partial class BPMAnalyzerViewModel : ObservableObject
 {
     int count = 0;
     public WaveFormat WaveFormat { get; private set; }
     public float[] AudioData { get; private set; }
 
-    public BPMAnalyzer()
+    public BPMAnalyzerViewModel()
     {
-        InitializeComponent();
+
     }
 
-    private void AnalyzeBPM_Clicked(object sender, EventArgs e)
-    {
-        AnalyzeBPM();
-        
-    }
+    [RelayCommand]
 
-    public void AnalyzeBPM()
+    private void AnalyzeBPM()
     {
         // Open the audio file using NAudio
         AudioFileReader audioFileReader = new AudioFileReader(@".\Resources\Raw\Khiva_FeelItOut.mp3");
@@ -75,4 +76,3 @@ public partial class BPMAnalyzer : ContentPage
         //    // For example, show it in a label or perform further actions
     }
 }
-

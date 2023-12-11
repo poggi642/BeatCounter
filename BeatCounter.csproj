@@ -57,6 +57,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\Raw\Khiva_FeelItOut.mp3" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.Maui.MediaElement" Version="3.0.0" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
 		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
@@ -66,12 +70,18 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="BPMAnalyzer.xaml.cs">
-	    <DependentUpon>BPMAnalyzer.xaml</DependentUpon>
+	  <Compile Update="View\BPMAnalyzerView.xaml.cs">
+	    <DependentUpon>BPMAnalyzerView.xaml</DependentUpon>
 	  </Compile>
-	  <Compile Update="MediaPlayer.xaml.cs">
-	    <DependentUpon>MediaPlayer.xaml</DependentUpon>
+	  <Compile Update="View\MainPage.xaml.cs">
+	    <DependentUpon>MainPage.xaml</DependentUpon>
 	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiAsset Update="Resources\Raw\AboutAssets.txt">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </MauiAsset>
 	</ItemGroup>
 
 	<ItemGroup>
@@ -81,7 +91,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="MediaPlayer.xaml">
+	  <MauiXaml Update="View\MainPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>

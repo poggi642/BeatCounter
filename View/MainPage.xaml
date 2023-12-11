@@ -1,19 +1,24 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BeatCounter.View.MainPage"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-             x:Class="BeatCounter.MediaPlayer"
+             xmlns:model="clr-namespace:BeatCounter.Model"
+             xmlns:viewmodel="clr-namespace:BeatCounter.ViewModel"
+             x:DataType="viewmodel:MediaPlayerViewModel"
              Title="MediaPlayer">
     <Grid>
-        <toolkit:MediaElement x:Name="mediaElement"
-                    ShouldAutoPlay="False"
-                    Source="embed://Khiva_FeelItOut.mp3"/>
+        <toolkit:MediaElement x:Name="mediaElement" Source="embed://Khiva_FeelItOut.mp3" 
+                              ShouldAutoPlay="{Binding IsPlaying}"/>
         <VerticalStackLayout>
-            <HorizontalStackLayout BindingContext="{x:Reference mediaElement}">
+            <HorizontalStackLayout>
+                <!--BindingContext="{x:Reference mediaElement}"-->
                 <Button Text="Play"
+                        Margin="10"
                         HorizontalOptions="CenterAndExpand"
-                        Clicked="OnPlayPauseButtonClicked"
-                        Margin="10">
+                        Clicked="OnPlayButtonClicked">
+                    <!--Command="{Binding PlayCommand}"
+                        Margin="10">-->
                     <!--<Button.Triggers>
                         <DataTrigger TargetType="Button"
                                      Binding="{Binding CurrentState}"
@@ -31,7 +36,7 @@
                 </Button>
                 <Button Text="Stop"
                         HorizontalOptions="CenterAndExpand"
-                        Clicked="OnStopButtonClicked"
+                        Command="{Binding StopCommand}"
                         Margin="10">
                     <!--<Button.Triggers>
                         <DataTrigger TargetType="Button"
@@ -42,7 +47,7 @@
                         </DataTrigger>
                     </Button.Triggers>-->
                 </Button>
-                <Label x:Name="beatCountLabel" Text="Beat Count: 0" FontSize="24"/>
+                <Label Text="{Binding BeatCount}" FontSize="24"/>
             </HorizontalStackLayout>
             <Slider Maximum="1.0"
                 Minimum="0.0"
