@@ -1,16 +1,18 @@
-﻿using CommunityToolkit.Maui.Core.Primitives;
+﻿using BeatCounter.Interfaces;
+using CommunityToolkit.Maui.Core.Primitives;
 using CommunityToolkit.Maui.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using NAudio.Wave;
 using System.Diagnostics;
 
 namespace BeatCounter.ViewModel;
-public partial class MediaPlayerViewModel : ObservableObject
+public partial class MediaPlayerViewModel(IAudioAnalyzer audioAnalyzer) : ObservableObject
 {
     private IDispatcherTimer timer;
     private Stopwatch? stopwatch;
     private double beatInterval;
-    private bool isTimerRunning;
+    private bool isTimerRunning = false;
 
     [ObservableProperty]
     private int beatCount;
@@ -24,40 +26,13 @@ public partial class MediaPlayerViewModel : ObservableObject
     private bool isPlaying;
     public double Volume => IsPlaying ? MediaElement.Volume : 1.0;
 
-    public MediaPlayerViewModel()
-    {
-        // Subscribe to the MediaOpened event
-        //mediaElement.MediaOpened += MediaElement_MediaOpened;
-
-        //// Subscribe to the MediaEnded event
-        //mediaElement.MediaEnded += MediaElement_MediaEnded;
-
-        //Initialize timer
-        isTimerRunning = false;
-        //timer = Dispatcher.CreateTimer();
-
-    }
-
-
-
     [RelayCommand]
     private void Play()
     {
-        mediaElement = (MediaElement)App.Current.MainPage.FindByName("mediaElement");
-        //MediaSource = "embed://Khiva_FeelItOut.mp3";
         IsPlaying = true;
-        mediaElement.Play();
-        //if (MediaElement.CurrentState == MediaElementState.Stopped ||
-        //    MediaElement.CurrentState == MediaElementState.Paused)
-        //{
-        //    MediaElement.Play();
-        //    // Initialize the timer
-        //    timer.Tick += Timer_Tick;
-        //}
-        //else if (MediaElement.CurrentState == MediaElementState.Playing)
-        //{
-        //    MediaElement.Pause();
-        //}
+
+        audioAnalyzer.TrackBeats();
+
     }
 
     [RelayCommand]

@@ -96,4 +96,14 @@
 	  </MauiXaml>
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="MusicData\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Update="MusicData\Khiva_FeelItOut.mp3">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
+	</ItemGroup>
+
 </Project>

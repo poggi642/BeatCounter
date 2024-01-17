@@ -9,7 +9,7 @@
              Title="MediaPlayer">
     <Grid>
         <toolkit:MediaElement x:Name="mediaElement" Source="embed://Khiva_FeelItOut.mp3" 
-                              ShouldAutoPlay="{Binding IsPlaying}"/>
+                              ShouldAutoPlay="False"/>
         <VerticalStackLayout>
             <HorizontalStackLayout>
                 <!--BindingContext="{x:Reference mediaElement}"-->
@@ -17,8 +17,6 @@
                         Margin="10"
                         HorizontalOptions="CenterAndExpand"
                         Clicked="OnPlayButtonClicked">
-                    <!--Command="{Binding PlayCommand}"
-                        Margin="10">-->
                     <!--<Button.Triggers>
                         <DataTrigger TargetType="Button"
                                      Binding="{Binding CurrentState}"
@@ -36,8 +34,9 @@
                 </Button>
                 <Button Text="Stop"
                         HorizontalOptions="CenterAndExpand"
-                        Command="{Binding StopCommand}"
-                        Margin="10">
+                        Margin="10"
+                        Clicked="OnStopButtonClicked">
+                        <!--Command="{Binding StopCommand}"-->
                     <!--<Button.Triggers>
                         <DataTrigger TargetType="Button"
                                      Binding="{Binding CurrentState}"

@@ -1,4 +1,5 @@
 ﻿//using Android.OS;
+using BeatCounter.Interfaces;
 using BeatCounter.Services;
 using BeatCounter.View;
 using BeatCounter.ViewModel;
@@ -38,7 +39,8 @@ public static class MauiProgram
 		builder.Services.AddSingleton<BPMAnalyzerViewModel>();
 
 		//services
-		builder.Services.AddSingleton<AudioAnalyzer>();
+		builder.Services.AddSingleton<IAudioAnalyzer,AudioAnalyzer>();
+		builder.Services.AddTransient<RealTimeAnalyzer>();
 
 
 		return builder.Build();

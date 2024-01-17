@@ -10,9 +10,10 @@ using BeatCounter.Extensions;
 using System.Xml;
 using System.Xml.Serialization;
 using BeatCounter.Model;
+using BeatCounter.Interfaces;
 
 namespace BeatCounter.Services;
-public class AudioAnalyzer
+public class AudioAnalyzer : IAudioAnalyzer
 {
     static double[] midi = new double[127];
 
@@ -121,7 +122,13 @@ public class AudioAnalyzer
     private string GetFilename()
     {
         Console.Write("Path to MIDI file (relative or absolute): ");
-        string fileName = @".\Resources\Raw\Khiva_FeelItOut.mp3";
+        // Get the base directory of the application
+        string baseDirectory = AppContext.BaseDirectory;
+
+        // Construct the file path relative to the base directory
+        string fileName = Path.Combine(baseDirectory, "MusicData", "Khiva_FeelItOut.mp3");
+
+        //string fileName = @".\MusicData\Khiva_FeelItOut.mp3";
         if (!File.Exists(fileName))
         {
             Console.WriteLine("That file does not exist.");
